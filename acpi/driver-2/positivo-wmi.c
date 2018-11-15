@@ -30,15 +30,6 @@ static void positivo_wmi_notify(u32 value, void *context)
 	acpi_status status;
 	int code;
 
-	positivo_wmi_input_dev = input_allocate_device();
-      if (!positivo_wmi_input_dev)
-		return;
-      positivo_wmi_input_dev->name = "Positivo laptop WMI hotkeys";
-      positivo_wmi_input_dev->phys = "wmi/input0";
-      positivo_wmi_input_dev->id.bustype = BUS_HOST;
-
-
-
 	status = wmi_get_event_data(value, &response);
 	if (status != AE_OK) {
 	    pr_err("bad event status 0x%x\n", status);
@@ -50,8 +41,8 @@ static void positivo_wmi_notify(u32 value, void *context)
 		code = obj->integer.value;
                printk("Codigo %d\n",code);
                printk("Codigo %x\n",code);
-    //	    if (!sparse_keymap_report_event(eeepc_wmi_input_dev, code, 1, true))
-//		pr_info("Unknown key %x pressed\n", code);
+    	    if (!sparse_keymap_report_event(positivo_wmi_input_dev, code, 1, true))
+		pr_info("Unknown key %x pressed\n", code);
 	}
 
 	kfree(obj);
@@ -74,14 +65,14 @@ static int positivo_wmi_input_setup(void)
      // 	if (err)
      //           goto err_free_dev;
      //
-     if (!sparse_keymap_report_event(positivo_wmi_input_dev, 28, 1, true))
-	     		pr_info("Unknown key %x pressed\n", 28);
+//     if (!sparse_keymap_report_event(positivo_wmi_input_dev, 28, 1, true))
+//	     		pr_info("Unknown key %x pressed\n", 28);
 
-        status = wmi_install_notify_handler(POSITIVO_WMI_EVENT_GUID,positivo_wmi_notify, NULL);
-		if (ACPI_FAILURE(status)) {
-		err = -EIO;
-		goto err_free_dev;
-		}
+//        status = wmi_install_notify_handler(POSITIVO_WMI_EVENT_GUID,positivo_wmi_notify, NULL);
+//		if (ACPI_FAILURE(status)) {
+//		err = -EIO;
+//		goto err_free_dev;
+//		}
 
 
 
@@ -102,10 +93,10 @@ static int __init positivo_start(void)
 	    return -ENODEV;
 	}
 
-//	err = positivo_wmi_input_setup();
+	err = positivo_wmi_input_setup();
 
- //       if (err)
-//		return err;
+        if (err)
+		return err;
 
 
 	status = wmi_install_notify_handler(POSITIVO_WMI_EVENT_GUID,
