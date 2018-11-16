@@ -19,7 +19,7 @@ MODULE_VERSION("0.1");
 static struct input_dev *positivo_wmi_input_dev;
   
  static const struct key_entry positivo_wmi_keymap[] = {
-	 	{ KE_KEY, 0x1c, { KEY_WWW } },
+	 	{ KE_KEY, 0x1c, { KEY_BRIGHTNESSDOWN } },
 		        { KE_END, 0},
 			    };
 //
@@ -41,7 +41,7 @@ static void positivo_wmi_notify(u32 value, void *context)
 		code = obj->integer.value;
                printk("Codigo %d\n",code);
                printk("Codigo %x\n",code);
-    	    if (!sparse_keymap_report_event(positivo_wmi_input_dev, code, 1, true))
+   	    if (!sparse_keymap_report_event(positivo_wmi_input_dev, code, 1, true))
 		pr_info("Unknown key %x pressed\n", code);
 	}
 
@@ -61,9 +61,9 @@ static int positivo_wmi_input_setup(void)
       positivo_wmi_input_dev->phys = "wmi/input0";
       positivo_wmi_input_dev->id.bustype = BUS_HOST;
 
-    //  err = sparse_keymap_setup(positivo_wmi_input_dev,positivo_wmi_keymap, NULL);
-     // 	if (err)
-     //           goto err_free_dev;
+     err = sparse_keymap_setup(positivo_wmi_input_dev,positivo_wmi_keymap, NULL);
+      	if (err)
+                goto err_free_dev;
      //
 //     if (!sparse_keymap_report_event(positivo_wmi_input_dev, 28, 1, true))
 //	     		pr_info("Unknown key %x pressed\n", 28);
@@ -93,7 +93,7 @@ static int __init positivo_start(void)
 	    return -ENODEV;
 	}
 
-	err = positivo_wmi_input_setup();
+ 	err = positivo_wmi_input_setup();
 
         if (err)
 		return err;
