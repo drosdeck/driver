@@ -62,9 +62,19 @@ static int positivo_wmi_input_setup(void)
       positivo_wmi_input_dev->id.bustype = BUS_HOST;
 
      err = sparse_keymap_setup(positivo_wmi_input_dev,positivo_wmi_keymap, NULL);
-      	if (err)
+      	if (err){
+		pr_info("Unable to setup device keymap\n");
                 goto err_free_dev;
-     //
+	}
+  
+     err = input_register_device(positivo_wmi_input_dev);
+        if (err){
+	   	pr_info("Unable to register input device\n");
+		goto err_free_dev;
+	}	
+
+
+	//
 //     if (!sparse_keymap_report_event(positivo_wmi_input_dev, 28, 1, true))
 //	     		pr_info("Unknown key %x pressed\n", 28);
 
