@@ -99,6 +99,11 @@ static int __init oemwmi_start(void)
 	}
 		
 	positivo_platform_device = platform_device_alloc("positivo-wmi", -1);
+	if (!positivo_platform_device){
+              platform_driver_unregister(&positivo_platform_driver);
+	}
+	err = platform_device_add(positivo_platform_device);
+	if (err) platform_device_put(positivo_platform_device);
 	return 0; 
 } 
 
