@@ -3,6 +3,8 @@
 #include <linux/init.h>	  
 #include <linux/acpi.h>
 #include <linux/string.h>
+#include <linux/rfkill.h>
+#include <linux/platform_device.h>
 
 MODULE_LICENSE("GPL"); 
 
@@ -13,10 +15,39 @@ MODULE_DESCRIPTION("Send wmi event key to acpi_listen");
 MODULE_VERSION("2.0"); 
 
 
+
 static char *WMI_EVENT_GUID = "ABBC0F72-8EA1-11D1-00A0-C90629100000";
 module_param(WMI_EVENT_GUID,charp,0644);
 MODULE_PARM_DESC(WMI_EVENT_GUID,"Wmi event guid");
 
+static struct rfkill *wireless_rfkill;
+
+
+// platform probe
+
+static int positivo_platform_probe(struct platform_device *device)
+{
+
+
+
+return 0;
+}
+
+static struct platform_driver positivo_platform_driver = {
+	.driver = {
+		.name = "positivo-wmi",
+	},
+        .probe = positivo_platform_probe,
+};
+
+static struct platform_device *positivo_platform_device;
+//static struct platform_driver xo1_rfkill_driver = {
+//	.driver = {
+//		.name = "xo1-rfkill",
+//	},
+//	.probe		= xo1_rfkill_probe,
+//	.remove		= xo1_rfkill_remove,
+//};
 
 
 static void wmi_hotkey_notify(u32 value, void *context)
@@ -47,7 +78,7 @@ static void wmi_hotkey_notify(u32 value, void *context)
 static int __init oemwmi_start(void) 
 {
 	int status;
-        
+        int err;
 
         if (!wmi_has_guid(WMI_EVENT_GUID)) {
 	    printk("No known WMI GUID found\n");
@@ -60,7 +91,14 @@ static int __init oemwmi_start(void)
 	    	
 		return -ENODEV;
 		}
-		printk("oemwmi started \n");
+
+	err = platform_driver_register(&positivo_platform_driver );	
+	if (err) {
+  		pr_err("Unable ro register platform driver\n");
+                  //TODO para fazer esse retorno
+	}
+		
+	positivo_platform_device = platform_device_alloc("positivo-wmi", -1);
 	return 0; 
 } 
 
