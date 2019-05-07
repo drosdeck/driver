@@ -1,0 +1,8 @@
+Melhorias
+1 -Nesta versão foi removido a informação da tecla no /proc
+e enviado a informação para o acpi_listen
+
+2  Por default ele usa o wmi_guid_event da positivo, mas se necessário
+é possível passar por parametro
+
+Este driver pega o valor da tecla e joga  para acpi_listen
