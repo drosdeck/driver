@@ -110,7 +110,10 @@ static int __init oemwmi_start(void)
 static void __exit oemwmi_end(void) 
 { 
 	wmi_remove_notify_handler(WMI_EVENT_GUID);
-	printk("oemwmi unload\n");
+       
+       	platform_device_unregister(positivo_platform_device);
+       	platform_driver_unregister(&positivo_platform_driver);
+	
 } 
 
 module_init(oemwmi_start); 
