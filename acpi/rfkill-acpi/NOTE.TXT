@@ -1,0 +1,3 @@
+com a funcao dmi_get_system_info pode pegar informacaoes do dmidecode no kernel
+è necessario incluir dmi.h
+Os parametros possiveis pode ser listado em include/linux/mod_devicetable.h
