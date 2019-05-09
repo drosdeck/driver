@@ -24,6 +24,29 @@ static int positivo_bt_enable(acpi_handle handle)
 	acpi_status result;
 	acpi_integer status;
 
+	result = acpi_evaluate_integer(handle, "BTST",NULL,&status);
+
+	if(ACPI_FAILURE(result))
+		return -EINVAL;
+	
+	if (!(status & (1 << 0)))
+		return -EBUSY;
+
+	if (!(status & (1 << 6)))
+		result = acpi_evaluate_object(handle, "AUSB",NULL,NULL);
+	
+	if (ACPI_FAILURE(result)){
+		printk(KERN_ERR "Failled to reattach Positivo Bluetooth device\n");
+		return -ENODEV;
+	}
+
+	if (!(status & (1 << 7)))
+		result = acpi_evaluate_object(handle, "BTPO",NULL,NULL);
+
+	if (ACPI_FAILURE(result)){
+		printk(KERN_ERR "Failled to power on Positivo Bluetooth device\n");
+		return -ENODEV;
+	}
 
 return 0;
 }
@@ -55,8 +78,11 @@ static struct acpi_driver positivo_bt_driver = {
 static int __init positivo_bt_rfkill_start(void) 
 {
 	int result = 0;
-        int err;
-
+       
+         result = acpi_bus_register_driver(&positivo_bt_driver);
+ 	if (result < 0 ){
+		printk("Erro no registro");
+	}		
 	return 0; 
 } 
 
