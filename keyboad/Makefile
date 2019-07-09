@@ -2,7 +2,7 @@
 # objects will be automatically built from the corresponding .c file -
 # no need to list the source files explicitly.
 
-obj-m := keyboard-drv.o 
+obj-m := kb.o 
 
 # KDIR is the location of the kernel source.  The current standard is
 # to link to the associated source tree from the directory containing
