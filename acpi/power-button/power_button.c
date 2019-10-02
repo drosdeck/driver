@@ -54,7 +54,7 @@ static int  acpi_power_button_add(struct acpi_device *device)
 	button = kzalloc(sizeof(struct acpi_button), GFP_KERNEL);
 	if (!button)
 		return -ENOMEM;
-
+        device->driver_data = button;
 	button->input = input = input_allocate_device();
 	if(!input){
 		error = -ENOMEM;
