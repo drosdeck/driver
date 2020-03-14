@@ -1,0 +1,23 @@
+https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/log/drivers/gpu/drm?h=linux-4.15.y&qt=grep&q=coffee+lake
+
+2017-09-19	drm/i915/cfl: Remove alpha support protection.	Rodrigo Vivi	1	-1/+0
+2017-08-22	drm/i915/cfl: Coffee Lake works on Kaby Lake PCH.	Rodrigo Vivi	1	-1/+2
+2017-08-03	drm/i915: Fix PCH names for KBP and CNP.	Rodrigo Vivi	2	-5/+5
+2017-07-03	drm/i915/cfl: Fix Workarounds.	Rodrigo Vivi	1	-7/+7
+2017-06-29	drm/i915/cfl: Fix Workarounds.	Rodrigo Vivi	1	-7/+7
+2017-06-21	Merge tag 'drm-intel-next-2017-06-19' of git://anongit.freedesktop.org/git/dr...	Dave Airlie	106	-3289/+36759
+2017-06-16	drm/i915/cfl: Introduce Coffee Lake workarounds.	Rodrigo Vivi	2	-23/+60
+2017-06-12	drm/i915/cfl: Basic DDI plumbing for Coffee Lake.	Rodrigo Vivi	2	-6/+9
+2017-06-09	drm/i915/cfl: Coffee Lake reuses Kabylake DMC.	Rodrigo Vivi	2	-2/+3
+2017-06-09	drm/i915/huc: Load HuC on Coffee Lake	Anusha Srivatsa	1	-1/+1
+2017-06-09	drm/i915/guc: Load GuC on Coffee Lake	Anusha Srivatsa	2	-1/+2
+2017-06-09	drm/i915/cfl: Add Coffee Lake PCI IDs for U Sku.	Anusha Srivatsa	1	-0/+1
+2017-06-09	drm/i915/cfl: Add Coffee Lake PCI IDs for H Sku.	Anusha Srivatsa	1	-0/+1
+2017-06-09	drm/i915/cfl: Add Coffee Lake PCI IDs for S Skus.	Anusha Srivatsa	1	-0/+1
+2017-06-08	drm/i915/cfl: Introduce Display workarounds for Coffee Lake.	Rodrigo Vivi	1	-10/+11
+2017-06-08	drm/i915/cfl: Coffee Lake uses CNP PCH.	Rodrigo Vivi	1	-3/+6
+2017-06-08	drm/i915/cfl: Introduce Coffee Lake platform definition.	Rodrigo Vivi	3	-0/+19
+
+
+
+----------------------------
