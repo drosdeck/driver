@@ -13,6 +13,41 @@ static const struct acpi_device_id battery_device_ids[] = {
 
 MODULE_DEVICE_TABLE(acpi, battery_device_ids);
 
+static enum power_supply_property test_battery_properties[] = {
+    POWER_SUPPLY_PROP_STATUS,
+    POWER_SUPPLY_PROP_CHARGE_TYPE,
+    POWER_SUPPLY_PROP_HEALTH,
+    POWER_SUPPLY_PROP_PRESENT,
+    POWER_SUPPLY_PROP_TECHNOLOGY,
+    POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN,
+    POWER_SUPPLY_PROP_CHARGE_FULL,
+    POWER_SUPPLY_PROP_CHARGE_NOW,
+    POWER_SUPPLY_PROP_CAPACITY,
+    POWER_SUPPLY_PROP_CAPACITY_LEVEL,
+    POWER_SUPPLY_PROP_TIME_TO_EMPTY_AVG,
+    POWER_SUPPLY_PROP_TIME_TO_FULL_NOW,
+    POWER_SUPPLY_PROP_MODEL_NAME,
+    POWER_SUPPLY_PROP_MANUFACTURER,
+    POWER_SUPPLY_PROP_SERIAL_NUMBER,
+    POWER_SUPPLY_PROP_TEMP,
+    POWER_SUPPLY_PROP_VOLTAGE_NOW,
+};
+
+
+
+static char *fake_ac_supplies[] = {
+    "BAT0",
+};
+
+static const struct power_supply_desc test_power_desc = {
+	.name = "test_bat",
+	.type = POWER_SUPPLY_TYPE_BATTERY,
+	.properties =  test_battery_properties,
+	.num_properties = ARRAY_SIZE(test_battery_properties)
+
+	};
+
+
 static int acpi_battery_add(struct acpi_device *device)
     {
 	//acpi_device_bid(device) retorna BAT0
