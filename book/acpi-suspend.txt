@@ -1,0 +1,13 @@
+Os estadod do suspend pode ser visto neste arquivo
+
+cat /sys/power/mem_sleep
+
+Ele pode ter 
+s2idle shallow deep
+
+é mais comum encontrar s2idle e deep
+
+o Estado deep é o suspend S3 realizado pelo ACPI
+
+no arquivo driver/acpi/sleep.c  existe o DMI para forcar  o suspend ser
+s2idle ou deep
